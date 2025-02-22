@@ -12,5 +12,6 @@ declare module 'vue' {
     InputGroup: typeof import('primevue/inputgroup')['default']
     InputText: typeof import('primevue/inputtext')['default']
     Textarea: typeof import('primevue/textarea')['default']
+    Toast: typeof import('primevue/toast')['default']
   }
 }
