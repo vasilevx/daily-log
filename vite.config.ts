@@ -10,4 +10,5 @@ export default defineConfig({
       PrimeVueResolver()
     ]
   })],
+  base: '/daily-log/'
 })
