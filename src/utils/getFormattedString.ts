@@ -1,19 +1,27 @@
 import type { Log } from "../types";
 import { getCurrentDay } from "./getCurrentDay"
 
-export const getFormattedString = (logs: Log[]): string => {
+export const getFormattedString = (logs: Log[], parkovka: string): string => {
     const currentDayText = getCurrentDay();
 
-    let formattedString = `#daily ${currentDayText}\n`
+    let formattedString = `#daily ${currentDayText}`
     const formattedLogs: string[] = []
 
-    logs.forEach((it) => {
-        if (it.content && it.author) {
-            formattedLogs.push(`- ${it.author} - ${it.content}`)
-        }
-    })
 
-    formattedString += `${formattedLogs.join(';\n')}.`
+
+    if (logs.length > 0) {
+        logs.forEach((it, index) => {
+            if (it.content && it.author) {
+                formattedLogs.push(`- ${it.author} - ${it.content}${index === logs.length - 1 ? '.' : ''}`)
+            }
+        })
+        formattedString += `\n${formattedLogs.join(';\n')}`
+
+    }
+
+    if (parkovka) {
+        formattedString += `\nПарковка:\n${parkovka}`
+    }
 
 
     return formattedString;

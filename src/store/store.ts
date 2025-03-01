@@ -46,7 +46,7 @@ export const useMessagesStore = defineStore('messages', {
         removeMessage(index: number) {
             delete this.messages[index]
         },
-        clear(){
+        clear() {
             this.messages = {}
         }
     },
@@ -63,7 +63,9 @@ export const useLogsStore = defineStore('logs', {
             })
         },
         formattedString(): string {
-            return getFormattedString(this.logs)
+            const parkovaStore = useParkovkaStore()
+
+            return getFormattedString(this.logs, parkovaStore.parkovka)
         }
     },
     actions: {
@@ -80,4 +82,18 @@ export const useLogsStore = defineStore('logs', {
             messagesStore.removeMessage(index)
         }
     }
+})
+
+type ParkovaState = {
+    parkovka: string
+}
+
+export const useParkovkaStore = defineStore('parkovka', {
+    state: (): ParkovaState => {
+        const localStorageValue = localStorage.getItem('parkovka')
+
+        return {
+            parkovka: localStorageValue ? JSON.parse(localStorageValue) : ""
+        }
+    },
 })
